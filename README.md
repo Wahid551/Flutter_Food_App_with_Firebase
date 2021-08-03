@@ -6,7 +6,7 @@ Food Customer
 Admin Panel
 
 ## Screenshot
-<img src='https://user-images.githubusercontent.com/73393935/128054408-c3780f45-5bc9-4d9e-b34b-2aae0ed044c0.jpeg' width=280/>    
+<img src='https://user-images.githubusercontent.com/73393935/128054985-ccc6a683-444e-4d97-9cd5-8ecf6f491461.jpeg' width=280/>    
 
 ## Getting Started
 
