@@ -48,12 +48,12 @@ class SignIn extends StatelessWidget {
                     children: [
                       SignInButton(
                         Buttons.Apple,
-                        text: "Sign up with Apple",
+                        text: "Sign in with Apple",
                         onPressed: () {},
                       ),
                       SignInButton(
                         Buttons.Google,
-                        text: "Sign up with Google",
+                        text: "Sign in with Google",
                         onPressed: () {},
                       ),
                     ],
