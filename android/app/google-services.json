@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "909727175793",
+    "project_id": "food-app-afe24",
+    "storage_bucket": "food-app-afe24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909727175793:android:c541b20f0c81b9ea2437d0",
+        "android_client_info": {
+          "package_name": "com.example.food_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909727175793-cot3fjjcmfjjoo45nva8g5kf95jgkpbv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.food_app",
+            "certificate_hash": "f5fa66063b115da009c222d9ffb919d4b2dd11d2"
+          }
+        },
+        {
+          "client_id": "909727175793-fr3abkhop2iiu3gp9488lvudanpr97rd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxeqNCGXw0RCjp9LUn0MjqsSRf0sEAvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909727175793-fr3abkhop2iiu3gp9488lvudanpr97rd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
