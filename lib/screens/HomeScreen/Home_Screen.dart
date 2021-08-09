@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/config/colors.dart';
+import 'package:food_app/screens/HomeScreen/drwaer_side.dart';
+import 'package:food_app/screens/HomeScreen/product/product-overview.dart';
+import 'package:food_app/screens/HomeScreen/single_product.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,141 +11,187 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Widget singleProduct() {
-    return Container(
-      margin: EdgeInsets.all(5.0),
-      height: MediaQuery.of(context).size.height * 0.35,
-      width: MediaQuery.of(context).size.width * 0.45,
-      decoration: BoxDecoration(
-        color: Color(0xffd9dad9),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Image.network(
-                'https://pngimg.com/uploads/spinach/spinach_PNG10.png'),
-          ),
-          Expanded(
-              child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 5.0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Fresh Basel',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                Text(
-                  '50\$/50 Gram',
+  Widget _buildHerbsProduct(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Herbs Seasonings',
+                style: TextStyle(color: textColor),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'view all',
                   style: TextStyle(color: Colors.grey),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 5.0),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                          child: Container(
-                        height: MediaQuery.of(context).size.height * 0.10 / 2,
-                        width: MediaQuery.of(context).size.width * 0.20,
-                        decoration: BoxDecoration(
-                          //color: Colors.black,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 2.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '50 Gram',
-                                style: TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Icon(
-                                Icons.arrow_downward,
-                                size: 15.0,
-                                color: Colors.orangeAccent,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.10 / 2,
-                          width: MediaQuery.of(context).size.width * 0.20,
-                          decoration: BoxDecoration(
-                            //color: Colors.red,
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.remove,
-                                size: 20.0,
-                                color: Colors.orangeAccent,
-                              ),
-                              Text(
-                                '1',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Icon(
-                                Icons.add,
-                                size: 20.0,
-                                color: Colors.orangeAccent,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+              ),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SingleProduct(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProductOverView(),
+                    ),
+                  );
+                },
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+              ),
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFreshProduct(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Fresh Fruits',
+                style: TextStyle(color: textColor),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'view all',
+                  style: TextStyle(color: Colors.grey),
                 ),
-              ],
-            ),
-          )),
-        ],
-      ),
+              ),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRootProduct() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Root Vegetables',
+                style: TextStyle(color: textColor),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'view all',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+              SingleProduct(
+                productImage:
+                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                productName: 'Wahid Ali',
+                onTap: () {},
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffcbcbcb),
-      drawer: Drawer(),
+      drawer: DrawerSide(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: textColor),
         title: Text(
           'Home',
-          style: TextStyle(fontSize: 22.0, color: Colors.black),
+          style: TextStyle(fontSize: 22.0, color: textColor),
         ),
         backgroundColor: Color(0xffd6b738),
         actions: [
           CircleAvatar(
             radius: 12.0,
-            backgroundColor: Color(0xffd4d181),
+            backgroundColor: primaryColor,
             child: Icon(
               Icons.search,
               size: 22.0,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
           Padding(
@@ -150,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Icon(
                 Icons.shop,
                 size: 22.0,
-                color: Colors.black,
+                color: textColor,
               ),
               radius: 12.0,
               backgroundColor: Color(0xffd4d181),
@@ -241,60 +291,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Herbs Seasoning',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'View all',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      singleProduct(),
-                      singleProduct(),
-                      singleProduct(),
-                      singleProduct()
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Fresh Fruits',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'View all',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      singleProduct(),
-                      singleProduct(),
-                      singleProduct(),
-                      singleProduct()
-                    ],
-                  ),
-                ),
+                _buildHerbsProduct(context),
+                _buildFreshProduct(context),
+                _buildRootProduct()
               ],
             ),
           ],
