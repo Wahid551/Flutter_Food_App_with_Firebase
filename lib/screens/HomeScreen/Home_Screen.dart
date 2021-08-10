@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/screens/HomeScreen/drwaer_side.dart';
-import 'package:food_app/screens/HomeScreen/product/product-overview.dart';
+import 'package:food_app/screens/HomeScreen/product_overview/product-overview.dart';
 import 'package:food_app/screens/HomeScreen/single_product.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,19 +42,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProductOverView(),
+                      builder: (context) => ProductOverView(
+                        productName: 'Fresh Basit',
+                        productImage:
+                            'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                      ),
                     ),
                   );
                 },
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
+                productName: 'Fresh Basit',
               ),
               SingleProduct(
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
                 productName: 'Wahid Ali',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProductOverView(
+                        productName: 'Wahid Ali',
+                        productImage:
+                            'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+                      ),
+                    ),
+                  );
+                },
               ),
               SingleProduct(
                 productImage:
