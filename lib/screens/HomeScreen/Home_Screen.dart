@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/screens/HomeScreen/drwaer_side.dart';
 import 'package:food_app/screens/HomeScreen/product_overview/product-overview.dart';
+import 'package:food_app/screens/HomeScreen/search/search.dart';
 import 'package:food_app/screens/HomeScreen/single_product.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -200,12 +201,21 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Color(0xffd6b738),
         actions: [
           CircleAvatar(
-            radius: 12.0,
-            backgroundColor: primaryColor,
-            child: Icon(
-              Icons.search,
-              size: 22.0,
-              color: textColor,
+            radius: 20.0,
+            backgroundColor: Color(0xffd4d181),
+            child: IconButton(
+              icon: Icon(
+                Icons.search,
+                size: 27.0,
+                color: textColor,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Search(),
+                  ),
+                );
+              },
             ),
           ),
           Padding(
@@ -216,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 22.0,
                 color: textColor,
               ),
-              radius: 12.0,
+              radius: 20.0,
               backgroundColor: Color(0xffd4d181),
             ),
           ),

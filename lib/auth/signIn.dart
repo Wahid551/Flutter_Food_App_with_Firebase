@@ -94,8 +94,8 @@ class _SignInState extends State<SignIn> {
                       SignInButton(
                         Buttons.Google,
                         text: "Sign in with Google",
-                        onPressed: () {
-                          _googleSignUp().then((value) {
+                        onPressed: () async {
+                          await _googleSignUp().then((value) {
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                     builder: (context) => HomeScreen()));
