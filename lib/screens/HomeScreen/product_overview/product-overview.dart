@@ -7,7 +7,11 @@ enum SignleCharacter { fill, outline }
 class ProductOverView extends StatefulWidget {
   late final String productName;
   late final String productImage;
-  ProductOverView({required this.productImage, required this.productName});
+  late final int productPrice;
+  ProductOverView(
+      {required this.productImage,
+      required this.productName,
+      required this.productPrice});
   @override
   _ProductOverViewState createState() => _ProductOverViewState();
 }
@@ -130,7 +134,7 @@ class _ProductOverViewState extends State<ProductOverView> {
                             ),
                           ],
                         ),
-                        Text('\$50'),
+                        Text('\$${widget.productPrice}'),
                         Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 30.0, vertical: 10.0),

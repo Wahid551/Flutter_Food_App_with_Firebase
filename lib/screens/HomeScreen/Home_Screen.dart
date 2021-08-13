@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
+import 'package:food_app/provider/product_provider.dart';
 import 'package:food_app/screens/HomeScreen/drwaer_side.dart';
 import 'package:food_app/screens/HomeScreen/product_overview/product-overview.dart';
 import 'package:food_app/screens/HomeScreen/search/search.dart';
 import 'package:food_app/screens/HomeScreen/single_product.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late ProductProvider productProvider;
   Widget _buildHerbsProduct(context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,46 +41,30 @@ class _HomeScreenState extends State<HomeScreen> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              SingleProduct(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productName: 'Fresh Basit',
-                        productImage:
-                            'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+            children: productProvider.getHerbsProductList.map(
+              (herbsProductData) {
+                return SingleProduct(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProductOverView(
+                          productName: herbsProductData.productName,
+                          productImage: herbsProductData.productImage,
+                          productPrice: herbsProductData.productPrice,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Fresh Basit',
-              ),
-              SingleProduct(
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productName: 'Wahid Ali',
-                        productImage:
-                            'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SingleProduct(
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                onTap: () {},
-              ),
-            ],
+                    );
+                  },
+                  productImage: herbsProductData.productImage,
+                  productName: herbsProductData.productName,
+                  productPrice: herbsProductData.productPrice,
+                );
+              },
+            ).toList(),
+            // children: [
+
+            //
+            // ],
           ),
         ),
       ],
@@ -115,15 +102,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
                 productName: 'Wahid Ali',
+                productPrice: 20,
                 onTap: () {},
               ),
               SingleProduct(
+                productPrice: 20,
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
                 productName: 'Wahid Ali',
                 onTap: () {},
               ),
               SingleProduct(
+                productPrice: 20,
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
                 productName: 'Wahid Ali',
@@ -164,18 +154,21 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             children: [
               SingleProduct(
+                productPrice: 20,
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
                 productName: 'Wahid Ali',
                 onTap: () {},
               ),
               SingleProduct(
+                productPrice: 20,
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
                 productName: 'Wahid Ali',
                 onTap: () {},
               ),
               SingleProduct(
+                productPrice: 20,
                 productImage:
                     'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
                 productName: 'Wahid Ali',
@@ -189,7 +182,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState() {
+    ProductProvider productProvider = Provider.of(context, listen: false);
+    productProvider.fetchHerbsProduct();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    productProvider = Provider.of(context);
     return Scaffold(
       drawer: DrawerSide(),
       appBar: AppBar(

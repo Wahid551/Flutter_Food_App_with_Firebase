@@ -30,7 +30,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.food_app"
-        minSdkVersion 16
+        minSdkVersion 21
+        multiDexEnabled true
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -57,7 +58,7 @@ apply plugin: 'com.google.gms.google-services'
 dependencies {
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:28.3.0')
-
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies

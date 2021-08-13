@@ -4,10 +4,12 @@ class SingleProduct extends StatefulWidget {
   late final String productImage;
   late final String productName;
   late final void Function() onTap;
+  late final int productPrice;
   SingleProduct(
       {required this.productName,
       required this.productImage,
-      required this.onTap});
+      required this.onTap,
+      required this.productPrice});
 
   @override
   _SingleProductState createState() => _SingleProductState();
@@ -54,7 +56,7 @@ class _SingleProductState extends State<SingleProduct> {
                               fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                         Text(
-                          '50\$/50 Gram',
+                          '${widget.productPrice}\$/50 Gram',
                           style: TextStyle(color: Colors.grey),
                         ),
                         Padding(
