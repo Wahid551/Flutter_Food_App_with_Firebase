@@ -97,29 +97,36 @@ class _HomeScreenState extends State<HomeScreen> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              SingleProduct(
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                productPrice: 20,
-                onTap: () {},
-              ),
-              SingleProduct(
-                productPrice: 20,
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                onTap: () {},
-              ),
-              SingleProduct(
-                productPrice: 20,
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                onTap: () {},
-              ),
-            ],
+            children: productProvider.getFreshFruitsList.map(
+              (fruitData) {
+                return SingleProduct(
+                  productImage: fruitData.productImage,
+                  productName: fruitData.productName,
+                  productPrice: fruitData.productPrice,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProductOverView(
+                          productName: fruitData.productName,
+                          productImage: fruitData.productImage,
+                          productPrice: fruitData.productPrice,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ).toList(),
+            // children: [
+            //   SingleProduct(
+            //     productImage:
+            //         'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+            //     productName: 'Wahid Ali',
+            //     productPrice: 20,
+            //     onTap: () {},
+            //   ),
+            //
+            // ],
           ),
         ),
       ],
@@ -152,29 +159,36 @@ class _HomeScreenState extends State<HomeScreen> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              SingleProduct(
-                productPrice: 20,
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                onTap: () {},
-              ),
-              SingleProduct(
-                productPrice: 20,
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                onTap: () {},
-              ),
-              SingleProduct(
-                productPrice: 20,
-                productImage:
-                    'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
-                productName: 'Wahid Ali',
-                onTap: () {},
-              ),
-            ],
+            children: productProvider.getRootProductList.map(
+              (e) {
+                return SingleProduct(
+                  productPrice: e.productPrice,
+                  productImage: e.productImage,
+                  productName: e.productName,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProductOverView(
+                          productName: e.productName,
+                          productImage: e.productImage,
+                          productPrice: e.productPrice,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ).toList(),
+            // children: [
+            //   SingleProduct(
+            //     productPrice: 20,
+            //     productImage:
+            //         'https://pngimg.com/uploads/spinach/spinach_PNG10.png',
+            //     productName: 'Wahid Ali',
+            //     onTap: () {},
+            //   ),
+            //
+            // ],
           ),
         )
       ],
@@ -185,6 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     ProductProvider productProvider = Provider.of(context, listen: false);
     productProvider.fetchHerbsProduct();
+    productProvider.fetchFruitsProduct();
+    productProvider.fetchRootsProduct();
     super.initState();
   }
 
