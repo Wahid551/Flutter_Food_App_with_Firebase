@@ -27,9 +27,9 @@ class ReviewCart extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          SingleItem(isBool: true),
-          SingleItem(isBool: true),
-          SingleItem(isBool: true),
+          // SingleItem(isBool: true),
+          // SingleItem(isBool: true),
+          // SingleItem(isBool: true),
         ],
       ),
     );

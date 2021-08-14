@@ -29,7 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(color: textColor),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Search(
+                            search: productProvider.getHerbsProductList,
+                          )));
+                },
                 child: Text(
                   'view all',
                   style: TextStyle(color: Colors.grey),
@@ -85,7 +90,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(color: textColor),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Search(
+                            search: productProvider.getFreshFruitsList,
+                          )));
+                },
                 child: Text(
                   'view all',
                   style: TextStyle(color: Colors.grey),
@@ -147,7 +157,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(color: textColor),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Search(
+                            search: productProvider.getRootProductList,
+                          )));
+                },
                 child: Text(
                   'view all',
                   style: TextStyle(color: Colors.grey),
@@ -229,7 +244,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Search(),
+                    builder: (context) => Search(
+                      search: productProvider.getAllSearchProductList,
+                    ),
                   ),
                 );
               },

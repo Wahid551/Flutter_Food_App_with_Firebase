@@ -4,6 +4,17 @@ import 'package:food_app/models/product_model.dart';
 
 class ProductProvider with ChangeNotifier {
   late ProductModel _productModel;
+  late List<ProductModel> search = [];
+
+  productsModel(QueryDocumentSnapshot element) {
+    _productModel = ProductModel(
+      productName: element.get('productName'),
+      productImage: element.get('productImage'),
+      productPrice: element.get('productPrice'),
+    );
+    // add All products to list
+    search.add(_productModel);
+  }
 
   ////////Herbs Product//////////
   List<ProductModel> herbsProduct = [];
@@ -17,10 +28,7 @@ class ProductProvider with ChangeNotifier {
     value.docs.forEach(
       (element) {
         // print(element.data());
-        _productModel = ProductModel(
-            productName: element.get('productName'),
-            productImage: element.get('productImage'),
-            productPrice: element.get('productPrice'));
+        productsModel(element);
         _newList.add(_productModel);
       },
     );
@@ -44,10 +52,7 @@ class ProductProvider with ChangeNotifier {
     value.docs.forEach(
       (element) {
         print(element.data());
-        _productModel = ProductModel(
-            productName: element.get('fruitName'),
-            productImage: element.get('fruitImage'),
-            productPrice: element.get('fruitPrice'));
+        productsModel(element);
         _newList.add(_productModel);
       },
     );
@@ -71,10 +76,11 @@ class ProductProvider with ChangeNotifier {
     value.docs.forEach(
       (element) {
         print(element.data());
-        _productModel = ProductModel(
-            productName: element.get('productName'),
-            productImage: element.get('productImage'),
-            productPrice: element.get('productPrice'));
+        // _productModel = ProductModel(
+        //     productName: element.get('productName'),
+        //     productImage: element.get('productImage'),
+        //     productPrice: element.get('productPrice'));
+        productsModel(element);
         _newList.add(_productModel);
       },
     );
@@ -84,5 +90,10 @@ class ProductProvider with ChangeNotifier {
 
   List<ProductModel> get getRootProductList {
     return rootProduct;
+  }
+
+  ////// All Search Products ////
+  List<ProductModel> get getAllSearchProductList {
+    return search;
   }
 }

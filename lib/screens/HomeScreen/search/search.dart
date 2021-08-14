@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/models/product_model.dart';
 import '../../../widgets/Single_item.dart';
 
 class Search extends StatefulWidget {
+  List<ProductModel> search;
+  Search({required this.search});
   @override
   _SearchState createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
+  String query = '';
+  searchItem(query) {
+    List<ProductModel> searchFood = widget.search.where(
+      (element) {
+        return element.productName.toLowerCase().contains(query);
+      },
+    ).toList();
+    return searchFood;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<ProductModel> _searchItem = searchItem(query);
     return Scaffold(
       appBar: AppBar(
         title: Text("Search"),
@@ -31,7 +45,11 @@ class _SearchState extends State<Search> {
             height: 52,
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  query = value;
+                });
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -47,11 +65,18 @@ class _SearchState extends State<Search> {
           SizedBox(
             height: 10,
           ),
-          SingleItem(isBool: false),
-          SingleItem(isBool: false),
-          SingleItem(isBool: false),
-          SingleItem(isBool: false),
-          SingleItem(isBool: false),
+          Column(
+            children: _searchItem.map(
+              (e) {
+                return SingleItem(
+                  isBool: false,
+                  productPrice: e.productPrice,
+                  productName: e.productName,
+                  productImage: e.productImage,
+                );
+              },
+            ).toList(),
+          ),
         ],
       ),
     );
