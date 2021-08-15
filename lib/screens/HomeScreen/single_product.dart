@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/widgets/count.dart';
 
 class SingleProduct extends StatefulWidget {
   late final String productImage;
   late final String productName;
   late final void Function() onTap;
   late final int productPrice;
+  late String productId;
   SingleProduct(
       {required this.productName,
       required this.productImage,
       required this.onTap,
-      required this.productPrice});
+      required this.productPrice,
+      required this.productId});
 
   @override
   _SingleProductState createState() => _SingleProductState();
@@ -98,40 +101,11 @@ class _SingleProductState extends State<SingleProduct> {
                               SizedBox(
                                 width: 5.0,
                               ),
-                              Expanded(
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.10 /
-                                      2,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.20,
-                                  decoration: BoxDecoration(
-                                    //color: Colors.red,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.remove,
-                                        size: 20.0,
-                                        color: Colors.orangeAccent,
-                                      ),
-                                      Text(
-                                        '1',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.add,
-                                        size: 20.0,
-                                        color: Colors.orangeAccent,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              Count(
+                                productId: widget.productId,
+                                productName: widget.productName,
+                                productImage: widget.productImage,
+                                productPrice: widget.productPrice,
                               ),
                             ],
                           ),

@@ -63,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   productImage: herbsProductData.productImage,
                   productName: herbsProductData.productName,
                   productPrice: herbsProductData.productPrice,
+                  productId: herbsProductData.productId,
                 );
               },
             ).toList(),
@@ -113,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   productImage: fruitData.productImage,
                   productName: fruitData.productName,
                   productPrice: fruitData.productPrice,
+                  productId: fruitData.productId,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -180,6 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   productPrice: e.productPrice,
                   productImage: e.productImage,
                   productName: e.productName,
+                  productId: e.productId,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 class UserProvider with ChangeNotifier {
-  addUserData(User currentUser, String userName, String userEmail,
+  void addUserData(User currentUser, String userName, String userEmail,
       String userImage, String userUid) async {
     await FirebaseFirestore.instance
         .collection('usersData')
