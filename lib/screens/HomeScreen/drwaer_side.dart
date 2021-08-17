@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
+import 'package:food_app/provider/review_cart_provider.dart';
 import 'package:food_app/screens/HomeScreen/review_cart/Review_Cart.dart';
+import 'package:provider/provider.dart';
 
 import 'my_profile/my_profile.dart';
 
 class DrawerSide extends StatelessWidget {
+  late ReviewCartProvider reviewCartProvider;
   Widget listTile(
       {required String title,
       required IconData iconData,
@@ -75,8 +78,8 @@ class DrawerSide extends StatelessWidget {
               iconData: Icons.shop_outlined,
               title: "Review Cart",
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => ReviewCart()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ReviewCart()));
               },
             ),
             listTile(
