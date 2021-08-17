@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
+import 'package:food_app/provider/review_cart_provider.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class SingleItem extends StatelessWidget {
+  late ReviewCartProvider reviewCartProvider;
   bool isBool = false;
   String productImage;
   String productName;
@@ -18,8 +21,45 @@ class SingleItem extends StatelessWidget {
     required this.productId,
     required this.productQuantity,
   });
+
+  showAlertDialog(BuildContext context, String cartId) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Yes"),
+      onPressed: () {
+        reviewCartProvider.reviewCartDataDelete(cartId);
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Cart Product"),
+      content: Text("Are you sure to delete this product ?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    reviewCartProvider = Provider.of<ReviewCartProvider>(context);
     return Column(
       children: [
         Padding(
@@ -125,10 +165,15 @@ class SingleItem extends StatelessWidget {
                           )
                         : Column(
                             children: [
-                              Icon(
-                                Icons.delete,
-                                size: 30,
-                                color: Colors.black,
+                              InkWell(
+                                onTap: () {
+                                  showAlertDialog(context, productId);
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                  size: 30,
+                                  color: Colors.black,
+                                ),
                               ),
                               SizedBox(
                                 height: 8.0,
