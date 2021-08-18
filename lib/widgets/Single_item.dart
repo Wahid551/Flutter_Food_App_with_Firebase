@@ -163,48 +163,57 @@ class SingleItem extends StatelessWidget {
                               ),
                             ),
                           )
-                        : Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  showAlertDialog(context, productId);
-                                },
-                                child: Icon(
-                                  Icons.delete,
-                                  size: 30,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 8.0,
-                              ),
-                              Container(
-                                height: 25.0,
-                                width: 70.0,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.add,
-                                        color: primaryColor,
-                                        size: 20.0,
-                                      ),
-                                      Text(
-                                        'ADD',
-                                        style: TextStyle(
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                    ],
+                        : Padding(
+                            padding: EdgeInsets.only(top: 15),
+                            child: Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    showAlertDialog(context, productId);
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    size: 30,
+                                    color: Colors.black,
                                   ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 8.0,
+                                ),
+                                Container(
+                                  height: 25.0,
+                                  width: 70.0,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.remove,
+                                          color: primaryColor,
+                                          size: 20.0,
+                                        ),
+                                        Text(
+                                          '1',
+                                          style: TextStyle(
+                                            color: primaryColor,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.add,
+                                          color: primaryColor,
+                                          size: 20.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           )),
               ),
             ],
