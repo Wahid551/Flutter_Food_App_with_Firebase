@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
+import 'package:food_app/provider/wishList_provider.dart';
+import 'package:provider/provider.dart';
 
 enum SignleCharacter { fill, outline }
 
@@ -8,16 +10,21 @@ class ProductOverView extends StatefulWidget {
   late final String productName;
   late final String productImage;
   late final int productPrice;
-  ProductOverView(
-      {required this.productImage,
-      required this.productName,
-      required this.productPrice});
+  late final String productId;
+
+  ProductOverView({
+    required this.productImage,
+    required this.productName,
+    required this.productPrice,
+    required this.productId,
+  });
   @override
   _ProductOverViewState createState() => _ProductOverViewState();
 }
 
 class _ProductOverViewState extends State<ProductOverView> {
   SignleCharacter _character = SignleCharacter.fill;
+  late WishListProvider wishListProvider;
 
   Widget bonntonNavigatorBar({
     required Color iconColor,
@@ -25,11 +32,11 @@ class _ProductOverViewState extends State<ProductOverView> {
     required Color color,
     required String title,
     required IconData iconData,
-    required Function onTap,
+    required void Function() onTap,
   }) {
     return Expanded(
       child: GestureDetector(
-        // onTap: onTap,
+        onTap: onTap,
         child: Container(
           padding: EdgeInsets.all(20),
           color: backgroundColor,
@@ -55,8 +62,10 @@ class _ProductOverViewState extends State<ProductOverView> {
     );
   }
 
+  bool wishListBool = false;
   @override
   Widget build(BuildContext context) {
+    wishListProvider = Provider.of<WishListProvider>(context);
     return Scaffold(
       bottomNavigationBar: Row(
         children: [
@@ -65,8 +74,21 @@ class _ProductOverViewState extends State<ProductOverView> {
             color: Colors.white70,
             iconColor: Colors.grey,
             title: "Add To WishList",
-            iconData: Icons.favorite_outline,
-            onTap: () {},
+            iconData:
+                wishListBool == false ? Icons.favorite_outline : Icons.favorite,
+            onTap: () {
+              setState(() {
+                wishListBool = !wishListBool;
+              });
+              if (wishListBool == true) {
+                wishListProvider.addWishListData(
+                    wishListId: widget.productId,
+                    wishListName: widget.productName,
+                    wishListImage: widget.productImage,
+                    wishListPrice: widget.productPrice,
+                    wishListQuantity: 2);
+              }
+            },
           ),
           bonntonNavigatorBar(
               backgroundColor: primaryColor,
