@@ -27,40 +27,42 @@ class WishListProvider with ChangeNotifier {
   }
 
 ///// Get WishList Data ///////
-//   List<ProductModel> wishList = [];
-//
-//   getWishtListData() async {
-//     List<ProductModel> newList = [];
-//     QuerySnapshot value = await FirebaseFirestore.instance
-//         .collection("WishList")
-//         .doc(FirebaseAuth.instance.currentUser!.uid)
-//         .collection("YourWishList")
-//         .get();
-//     value.docs.forEach(
-//           (element) {
-//         ProductModel productModel = ProductModel(
-//           productId: element.get("wishListId"),
-//           productImage: element.get("wishListImage"),
-//           productName: element.get("wishListName"),
-//           productPrice: element.get("wishListPrice"),
-//           productQuantity: element.get("wishListQuantity"),
-//         );
-//         newList.add(productModel);
-//       },
-//     );
-//     wishList = newList;
-//     notifyListeners();
-//   }
-//
-//   List<ProductModel> get getWishList {
-//     return wishList;
-//   }
+  List<ProductModel> wishList = [];
+
+  getWishtListData() async {
+    List<ProductModel> newList = [];
+    QuerySnapshot value = await FirebaseFirestore.instance
+        .collection("WishList")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourWishList")
+        .get();
+    value.docs.forEach(
+      (element) {
+        ProductModel productModel = ProductModel(
+          productId: element.get("wishListId"),
+          productImage: element.get("wishListImage"),
+          productName: element.get("wishListName"),
+          productPrice: element.get("wishListPrice"),
+          productQuantity: element.get("wishListQuantity"),
+        );
+        newList.add(productModel);
+      },
+    );
+    wishList = newList;
+    notifyListeners();
+  }
+
+  List<ProductModel> get getWishList {
+    return wishList;
+  }
 
 ////////// Delete WishList /////
-//   deleteWishtList(wishListId){
-//     FirebaseFirestore.instance
-//         .collection("WishList")
-//         .doc(FirebaseAuth.instance.currentUser.uid)
-//         .collection("YourWishList").doc(wishListId).delete();
-//   }
+  deleteWishtList(wishListId) {
+    FirebaseFirestore.instance
+        .collection("WishList")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourWishList")
+        .doc(wishListId)
+        .delete();
+  }
 }

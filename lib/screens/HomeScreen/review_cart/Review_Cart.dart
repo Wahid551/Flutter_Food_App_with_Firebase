@@ -51,12 +51,14 @@ class _ReviewCartState extends State<ReviewCart> {
                       height: 8.0,
                     ),
                     SingleItem(
+                      isWish: true,
                       isBool: true,
                       productName: data.cartName,
                       productPrice: data.cartPrice,
                       productImage: data.cartImage,
                       productId: data.cartId,
                       productQuantity: data.cartQuantity,
+                      onTap: () {},
                     ),
                   ],
                 );

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
@@ -63,9 +65,32 @@ class _ProductOverViewState extends State<ProductOverView> {
   }
 
   bool wishListBool = false;
+  getWishtListBool() {
+    FirebaseFirestore.instance
+        .collection("WishList")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourWishList")
+        .doc(widget.productId)
+        .get()
+        .then((value) => {
+              if (this.mounted)
+                {
+                  if (value.exists)
+                    {
+                      setState(
+                        () {
+                          wishListBool = value.get("wishList");
+                        },
+                      ),
+                    }
+                }
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     wishListProvider = Provider.of<WishListProvider>(context);
+    getWishtListBool();
     return Scaffold(
       bottomNavigationBar: Row(
         children: [
@@ -87,6 +112,8 @@ class _ProductOverViewState extends State<ProductOverView> {
                     wishListImage: widget.productImage,
                     wishListPrice: widget.productPrice,
                     wishListQuantity: 2);
+              } else {
+                wishListProvider.deleteWishtList(widget.productId);
               }
             },
           ),

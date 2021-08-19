@@ -5,14 +5,15 @@ import 'package:food_app/provider/review_cart_provider.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class SingleItem extends StatelessWidget {
-  late ReviewCartProvider reviewCartProvider;
-  bool isBool = false;
+class SingleItem extends StatefulWidget {
+  bool isBool;
+  bool isWish;
   String productImage;
   String productName;
   int productPrice;
   int productQuantity;
   String productId;
+  late final void Function() onTap;
   SingleItem({
     required this.isBool,
     required this.productName,
@@ -20,7 +21,16 @@ class SingleItem extends StatelessWidget {
     required this.productPrice,
     required this.productId,
     required this.productQuantity,
+    required this.onTap,
+    required this.isWish,
   });
+
+  @override
+  _SingleItemState createState() => _SingleItemState();
+}
+
+class _SingleItemState extends State<SingleItem> {
+  late ReviewCartProvider reviewCartProvider;
 
   showAlertDialog(BuildContext context, String cartId) {
     // set up the buttons
@@ -70,7 +80,7 @@ class SingleItem extends StatelessWidget {
                 child: Container(
                   height: 100.0,
                   child: Center(
-                    child: Image.network(productImage),
+                    child: Image.network(widget.productImage),
                   ),
                 ),
               ),
@@ -78,7 +88,7 @@ class SingleItem extends StatelessWidget {
                   child: Container(
                 height: 100.0,
                 child: Column(
-                  mainAxisAlignment: isBool == false
+                  mainAxisAlignment: widget.isBool == false
                       ? MainAxisAlignment.spaceAround
                       : MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,17 +96,17 @@ class SingleItem extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          productName,
+                          widget.productName,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: textColor),
                         ),
                         Text(
-                          '\$$productPrice',
+                          '\$${widget.productPrice}',
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
                     ),
-                    isBool == false
+                    widget.isBool == false
                         ? Container(
                             height: 35,
                             margin: EdgeInsets.only(right: 15.0),
@@ -133,10 +143,10 @@ class SingleItem extends StatelessWidget {
               Expanded(
                 child: Container(
                     height: 100.0,
-                    padding: isBool == false
+                    padding: widget.isBool == false
                         ? EdgeInsets.symmetric(horizontal: 15.0, vertical: 32.0)
                         : EdgeInsets.only(left: 15.0, right: 15.0),
-                    child: isBool == false
+                    child: widget.isBool == false
                         ? Container(
                             height: 25.0,
                             width: 50.0,
@@ -168,9 +178,7 @@ class SingleItem extends StatelessWidget {
                             child: Column(
                               children: [
                                 InkWell(
-                                  onTap: () {
-                                    showAlertDialog(context, productId);
-                                  },
+                                  onTap: widget.onTap,
                                   child: Icon(
                                     Icons.delete,
                                     size: 30,
@@ -180,38 +188,42 @@ class SingleItem extends StatelessWidget {
                                 SizedBox(
                                   height: 8.0,
                                 ),
-                                Container(
-                                  height: 25.0,
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.remove,
-                                          color: primaryColor,
-                                          size: 20.0,
+                                widget.isWish == false
+                                    ? Container(
+                                        height: 25.0,
+                                        width: 70.0,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
                                         ),
-                                        Text(
-                                          '1',
-                                          style: TextStyle(
-                                            color: primaryColor,
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.remove,
+                                                color: primaryColor,
+                                                size: 20.0,
+                                              ),
+                                              Text(
+                                                '1',
+                                                style: TextStyle(
+                                                  color: primaryColor,
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.add,
+                                                color: primaryColor,
+                                                size: 20.0,
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Icon(
-                                          Icons.add,
-                                          color: primaryColor,
-                                          size: 20.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                      )
+                                    : Container(),
                               ],
                             ),
                           )),
@@ -219,7 +231,7 @@ class SingleItem extends StatelessWidget {
             ],
           ),
         ),
-        isBool == false
+        widget.isBool == false
             ? Container()
             : Divider(
                 height: 1,

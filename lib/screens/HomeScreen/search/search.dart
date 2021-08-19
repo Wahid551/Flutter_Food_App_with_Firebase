@@ -70,11 +70,13 @@ class _SearchState extends State<Search> {
               (e) {
                 return SingleItem(
                   isBool: false,
+                  isWish: true,
                   productPrice: e.productPrice,
                   productName: e.productName,
                   productImage: e.productImage,
                   productId: e.productId,
                   productQuantity: 0,
+                  onTap: () {},
                 );
               },
             ).toList(),
