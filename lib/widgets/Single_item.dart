@@ -4,6 +4,8 @@ import 'package:food_app/config/colors.dart';
 import 'package:food_app/provider/review_cart_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'count.dart';
+
 // ignore: must_be_immutable
 class SingleItem extends StatefulWidget {
   bool isBool;
@@ -13,7 +15,7 @@ class SingleItem extends StatefulWidget {
   int productPrice;
   int productQuantity;
   String productId;
-  late final void Function() onTap;
+  void Function() onTap;
   SingleItem({
     required this.isBool,
     required this.productName,
@@ -31,41 +33,6 @@ class SingleItem extends StatefulWidget {
 
 class _SingleItemState extends State<SingleItem> {
   late ReviewCartProvider reviewCartProvider;
-
-  showAlertDialog(BuildContext context, String cartId) {
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text("No"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-    Widget continueButton = TextButton(
-      child: Text("Yes"),
-      onPressed: () {
-        reviewCartProvider.reviewCartDataDelete(cartId);
-        Navigator.of(context).pop();
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Cart Product"),
-      content: Text("Are you sure to delete this product ?"),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,33 +74,65 @@ class _SingleItemState extends State<SingleItem> {
                       ],
                     ),
                     widget.isBool == false
-                        ? Container(
-                            height: 35,
-                            margin: EdgeInsets.only(right: 15.0),
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    '50 Gram',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 14.0,
+                        ? GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ListTile(
+                                        title: Text('50 Gram'),
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ListTile(
+                                        title: Text('500 Gram'),
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      ListTile(
+                                        title: Text('1 Kg'),
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              height: 35,
+                              margin: EdgeInsets.only(right: 15.0),
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      '50 Gram',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14.0,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Center(
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    size: 20.0,
-                                    color: primaryColor,
+                                  Center(
+                                    child: Icon(
+                                      Icons.arrow_drop_down,
+                                      size: 20.0,
+                                      color: primaryColor,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           )
                         : Text('50 Gram'),
@@ -147,32 +146,38 @@ class _SingleItemState extends State<SingleItem> {
                         ? EdgeInsets.symmetric(horizontal: 15.0, vertical: 32.0)
                         : EdgeInsets.only(left: 15.0, right: 15.0),
                     child: widget.isBool == false
-                        ? Container(
-                            height: 25.0,
-                            width: 50.0,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.add,
-                                    color: primaryColor,
-                                    size: 20.0,
-                                  ),
-                                  Text(
-                                    'ADD',
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                        ? Count(
+                            productId: widget.productId,
+                            productName: widget.productName,
+                            productImage: widget.productImage,
+                            productPrice: widget.productPrice,
                           )
+                        // ? Container(
+                        //     height: 25.0,
+                        //     width: 50.0,
+                        //     decoration: BoxDecoration(
+                        //       border: Border.all(color: Colors.grey),
+                        //       borderRadius: BorderRadius.circular(30.0),
+                        //     ),
+                        //     child: Center(
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: [
+                        //           Icon(
+                        //             Icons.add,
+                        //             color: primaryColor,
+                        //             size: 20.0,
+                        //           ),
+                        //           Text(
+                        //             'ADD',
+                        //             style: TextStyle(
+                        //               color: primaryColor,
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   )
                         : Padding(
                             padding: EdgeInsets.only(top: 15),
                             child: Column(

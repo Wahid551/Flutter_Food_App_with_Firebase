@@ -4,6 +4,7 @@ import 'package:food_app/config/colors.dart';
 import 'package:food_app/provider/product_provider.dart';
 import 'package:food_app/screens/HomeScreen/drwaer_side.dart';
 import 'package:food_app/screens/HomeScreen/product_overview/product-overview.dart';
+import 'package:food_app/screens/HomeScreen/review_cart/Review_Cart.dart';
 import 'package:food_app/screens/HomeScreen/search/search.dart';
 import 'package:food_app/screens/HomeScreen/single_product.dart';
 import 'package:provider/provider.dart';
@@ -260,14 +261,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: CircleAvatar(
-              child: Icon(
-                Icons.shop,
-                size: 22.0,
-                color: textColor,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ReviewCart()));
+              },
+              child: CircleAvatar(
+                child: Icon(
+                  Icons.shop,
+                  size: 22.0,
+                  color: textColor,
+                ),
+                radius: 20.0,
+                backgroundColor: Color(0xffd4d181),
               ),
-              radius: 20.0,
-              backgroundColor: Color(0xffd4d181),
             ),
           ),
         ],

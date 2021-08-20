@@ -73,7 +73,7 @@ class _WishLsitState extends State<WishLsit> {
                       height: 10,
                     ),
                     SingleItem(
-                      isWish: false,
+                      isWish: true,
                       isBool: true,
                       productImage: data.productImage,
                       productName: data.productName,

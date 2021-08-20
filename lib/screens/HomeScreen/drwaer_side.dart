@@ -5,6 +5,7 @@ import 'package:food_app/screens/HomeScreen/review_cart/Review_Cart.dart';
 import 'package:food_app/screens/HomeScreen/wish_List/wishList.dart';
 import 'package:provider/provider.dart';
 
+import 'Home_Screen.dart';
 import 'my_profile/my_profile.dart';
 
 class DrawerSide extends StatelessWidget {
@@ -73,7 +74,10 @@ class DrawerSide extends StatelessWidget {
             listTile(
               iconData: Icons.home_outlined,
               title: "Home",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
+              },
             ),
             listTile(
               iconData: Icons.shop_outlined,

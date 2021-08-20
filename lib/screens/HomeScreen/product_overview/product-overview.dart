@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/provider/wishList_provider.dart';
+import 'package:food_app/screens/HomeScreen/review_cart/Review_Cart.dart';
+import 'package:food_app/widgets/count.dart';
 import 'package:provider/provider.dart';
 
 enum SignleCharacter { fill, outline }
@@ -123,7 +125,11 @@ class _ProductOverViewState extends State<ProductOverView> {
               iconColor: Colors.white70,
               title: "Go To Cart",
               iconData: Icons.shop_outlined,
-              onTap: () {}),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ReviewCart(),
+                ));
+              }),
         ],
       ),
       appBar: AppBar(
@@ -184,30 +190,38 @@ class _ProductOverViewState extends State<ProductOverView> {
                           ],
                         ),
                         Text('\$${widget.productPrice}'),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30.0, vertical: 10.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            border: Border.all(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add_outlined,
-                                size: 17.0,
-                                color: primaryColor,
-                              ),
-                              Text(
-                                'ADD',
-                                style: TextStyle(color: primaryColor),
-                              ),
-                            ],
-                          ),
+
+                        Count(
+                          productId: widget.productId,
+                          productName: widget.productName,
+                          productImage: widget.productImage,
+                          productPrice: widget.productPrice,
                         ),
+
+                        // Container(
+                        //   padding: EdgeInsets.symmetric(
+                        //       horizontal: 30.0, vertical: 10.0),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(30.0),
+                        //     border: Border.all(
+                        //       color: Colors.grey,
+                        //     ),
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       Icon(
+                        //         Icons.add_outlined,
+                        //         size: 17.0,
+                        //         color: primaryColor,
+                        //       ),
+                        //       Text(
+                        //         'ADD',
+                        //         style: TextStyle(color: primaryColor),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

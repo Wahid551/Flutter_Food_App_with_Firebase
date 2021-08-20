@@ -11,10 +11,45 @@ class ReviewCart extends StatefulWidget {
 }
 
 class _ReviewCartState extends State<ReviewCart> {
+  late ReviewCartProvider reviewCartProvider;
+  showAlertDialog(BuildContext context, String cartId) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Yes"),
+      onPressed: () {
+        reviewCartProvider.reviewCartDataDelete(cartId);
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Cart Product"),
+      content: Text("Are you sure to delete this product ?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    ReviewCartProvider reviewCartProvider =
-        Provider.of<ReviewCartProvider>(context);
+    reviewCartProvider = Provider.of<ReviewCartProvider>(context);
     reviewCartProvider.getReviewCartData();
     return Scaffold(
       bottomNavigationBar: ListTile(
@@ -51,14 +86,16 @@ class _ReviewCartState extends State<ReviewCart> {
                       height: 8.0,
                     ),
                     SingleItem(
-                      isWish: true,
+                      isWish: false,
                       isBool: true,
                       productName: data.cartName,
                       productPrice: data.cartPrice,
                       productImage: data.cartImage,
                       productId: data.cartId,
                       productQuantity: data.cartQuantity,
-                      onTap: () {},
+                      onTap: () {
+                        showAlertDialog(context, data.cartId);
+                      },
                     ),
                   ],
                 );
