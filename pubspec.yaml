@@ -33,6 +33,7 @@ dependencies:
   google_sign_in: ^5.0.7
   cloud_firestore: ^2.4.0
   provider: ^5.0.0
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:

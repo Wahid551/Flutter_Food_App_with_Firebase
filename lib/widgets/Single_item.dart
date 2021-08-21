@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/provider/review_cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -33,10 +34,19 @@ class SingleItem extends StatefulWidget {
 
 class _SingleItemState extends State<SingleItem> {
   late ReviewCartProvider reviewCartProvider;
+  late int count;
+  getCount() {
+    setState(() {
+      count = widget.productQuantity;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    getCount();
+    print("ProductQuantity--------- $count");
     reviewCartProvider = Provider.of<ReviewCartProvider>(context);
+    reviewCartProvider.getReviewCartData();
     return Column(
       children: [
         Padding(
@@ -208,21 +218,66 @@ class _SingleItemState extends State<SingleItem> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Icon(
-                                                Icons.remove,
-                                                color: primaryColor,
-                                                size: 20.0,
+                                              InkWell(
+                                                onTap: () {
+                                                  if (count == 1) {
+                                                    Fluttertoast.showToast(
+                                                      msg:
+                                                          "You reach minimum limit",
+                                                    );
+                                                  } else {
+                                                    setState(() {
+                                                      count--;
+                                                    });
+                                                    reviewCartProvider
+                                                        .updateReviewCartData(
+                                                      cartImage:
+                                                          widget.productImage,
+                                                      cartId: widget.productId,
+                                                      cartName:
+                                                          widget.productName,
+                                                      cartPrice:
+                                                          widget.productPrice,
+                                                      cartQuantity: count,
+                                                    );
+                                                  }
+                                                },
+                                                child: Icon(
+                                                  Icons.remove,
+                                                  color: primaryColor,
+                                                  size: 20.0,
+                                                ),
                                               ),
                                               Text(
-                                                '1',
+                                                '$count',
                                                 style: TextStyle(
                                                   color: primaryColor,
                                                 ),
                                               ),
-                                              Icon(
-                                                Icons.add,
-                                                color: primaryColor,
-                                                size: 20.0,
+                                              InkWell(
+                                                onTap: () {
+                                                  if (count < 10) {
+                                                    setState(() {
+                                                      count++;
+                                                    });
+                                                    reviewCartProvider
+                                                        .updateReviewCartData(
+                                                      cartImage:
+                                                          widget.productImage,
+                                                      cartId: widget.productId,
+                                                      cartName:
+                                                          widget.productName,
+                                                      cartPrice:
+                                                          widget.productPrice,
+                                                      cartQuantity: count,
+                                                    );
+                                                  }
+                                                },
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: primaryColor,
+                                                  size: 20.0,
+                                                ),
                                               ),
                                             ],
                                           ),

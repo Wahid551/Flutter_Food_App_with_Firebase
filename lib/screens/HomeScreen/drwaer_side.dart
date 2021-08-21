@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/provider/review_cart_provider.dart';
+import 'package:food_app/provider/user_provider.dart';
 import 'package:food_app/screens/HomeScreen/review_cart/Review_Cart.dart';
 import 'package:food_app/screens/HomeScreen/wish_List/wishList.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +9,16 @@ import 'package:provider/provider.dart';
 import 'Home_Screen.dart';
 import 'my_profile/my_profile.dart';
 
-class DrawerSide extends StatelessWidget {
+class DrawerSide extends StatefulWidget {
+  late UserProvider userProvider;
+  DrawerSide({required this.userProvider});
+  @override
+  _DrawerSideState createState() => _DrawerSideState();
+}
+
+class _DrawerSideState extends State<DrawerSide> {
   late ReviewCartProvider reviewCartProvider;
+
   Widget listTile(
       {required String title,
       required IconData iconData,
@@ -32,6 +41,7 @@ class DrawerSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userData = widget.userProvider.currentUserData;
     return Drawer(
       child: Container(
         color: primaryColor,
@@ -48,7 +58,8 @@ class DrawerSide extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundColor: Colors.yellow,
                         backgroundImage: NetworkImage(
-                          "https://s3.envato.com/files/328957910/vegi_thumb.png",
+                          userData.userImage ??
+                              "https://s3.envato.com/files/328957910/vegi_thumb.png",
                         ),
                         radius: 40,
                       ),
@@ -60,9 +71,9 @@ class DrawerSide extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Wahid Ali'),
+                        Text(userData.userName),
                         Text(
-                          'wahidmalik551@gmail.com',
+                          userData.userEmail,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -91,8 +102,9 @@ class DrawerSide extends StatelessWidget {
               iconData: Icons.person_outlined,
               title: "My Profile",
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => MyProfile()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        MyProfile(userProvider: widget.userProvider)));
               },
             ),
             listTile(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/provider/product_provider.dart';
+import 'package:food_app/provider/user_provider.dart';
 import 'package:food_app/screens/HomeScreen/drwaer_side.dart';
 import 'package:food_app/screens/HomeScreen/product_overview/product-overview.dart';
 import 'package:food_app/screens/HomeScreen/review_cart/Review_Cart.dart';
@@ -229,8 +230,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     productProvider = Provider.of(context);
+    UserProvider userProvider = Provider.of(context);
+    userProvider.getUserData();
     return Scaffold(
-      drawer: DrawerSide(),
+      drawer: DrawerSide(userProvider: userProvider),
       appBar: AppBar(
         iconTheme: IconThemeData(color: textColor),
         title: Text(

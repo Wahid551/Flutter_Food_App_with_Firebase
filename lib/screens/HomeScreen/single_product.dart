@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/provider/review_cart_provider.dart';
 import 'package:food_app/widgets/count.dart';
+import 'package:provider/provider.dart';
 
 class SingleProduct extends StatefulWidget {
   late final String productImage;
@@ -7,12 +9,14 @@ class SingleProduct extends StatefulWidget {
   late final void Function() onTap;
   late final int productPrice;
   late String productId;
-  SingleProduct(
-      {required this.productName,
-      required this.productImage,
-      required this.onTap,
-      required this.productPrice,
-      required this.productId});
+
+  SingleProduct({
+    required this.productName,
+    required this.productImage,
+    required this.onTap,
+    required this.productPrice,
+    required this.productId,
+  });
 
   @override
   _SingleProductState createState() => _SingleProductState();

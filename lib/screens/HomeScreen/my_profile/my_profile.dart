@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
+import 'package:food_app/models/user_model.dart';
+import 'package:food_app/provider/user_provider.dart';
 
 import '../drwaer_side.dart';
 
 class MyProfile extends StatefulWidget {
+  late UserProvider userProvider;
+  MyProfile({required this.userProvider});
   @override
   _MyProfileState createState() => _MyProfileState();
 }
@@ -26,6 +30,7 @@ class _MyProfileState extends State<MyProfile> {
   }
 
   Widget build(BuildContext context) {
+    var userData = widget.userProvider.currentUserData;
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -38,7 +43,9 @@ class _MyProfileState extends State<MyProfile> {
           ),
         ),
       ),
-      drawer: DrawerSide(),
+      drawer: DrawerSide(
+        userProvider: widget.userProvider,
+      ),
       body: Stack(
         children: [
           Column(
@@ -75,7 +82,7 @@ class _MyProfileState extends State<MyProfile> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Wahid ALi',
+                                      userData.userName,
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
@@ -84,7 +91,7 @@ class _MyProfileState extends State<MyProfile> {
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    Text('wahidmalik551@gmail.com'),
+                                    Text(userData.userEmail),
                                   ],
                                 ),
                                 CircleAvatar(
@@ -131,7 +138,8 @@ class _MyProfileState extends State<MyProfile> {
               backgroundColor: primaryColor,
               child: CircleAvatar(
                   backgroundImage: NetworkImage(
-                    "https://s3.envato.com/files/328957910/vegi_thumb.png",
+                    userData.userImage ??
+                        "https://s3.envato.com/files/328957910/vegi_thumb.png",
                   ),
                   radius: 45,
                   backgroundColor: scaffoldBackgroundColor),
