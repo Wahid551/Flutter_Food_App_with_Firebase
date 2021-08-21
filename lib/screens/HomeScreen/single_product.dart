@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/config/colors.dart';
+import 'package:food_app/models/product_model.dart';
 import 'package:food_app/provider/review_cart_provider.dart';
 import 'package:food_app/widgets/count.dart';
+import 'package:food_app/widgets/productUnit.dart';
 import 'package:provider/provider.dart';
 
 class SingleProduct extends StatefulWidget {
@@ -9,6 +12,7 @@ class SingleProduct extends StatefulWidget {
   late final void Function() onTap;
   late final int productPrice;
   late String productId;
+  late final ProductModel productUnit;
 
   SingleProduct({
     required this.productName,
@@ -16,6 +20,7 @@ class SingleProduct extends StatefulWidget {
     required this.onTap,
     required this.productPrice,
     required this.productId,
+    required this.productUnit,
   });
 
   @override
@@ -23,8 +28,16 @@ class SingleProduct extends StatefulWidget {
 }
 
 class _SingleProductState extends State<SingleProduct> {
+  var unitData;
+  var firstValue;
   @override
   Widget build(BuildContext context) {
+    widget.productUnit.productUnit.firstWhere((element) {
+      setState(() {
+        firstValue = element;
+      });
+      return true;
+    });
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -63,7 +76,7 @@ class _SingleProductState extends State<SingleProduct> {
                               fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                         Text(
-                          '${widget.productPrice}\$/50 Gram',
+                          '${widget.productPrice}\$/${unitData == null ? firstValue : unitData}',
                           style: TextStyle(color: Colors.grey),
                         ),
                         Padding(
@@ -72,70 +85,52 @@ class _SingleProductState extends State<SingleProduct> {
                             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                  child: InkWell(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          ListTile(
-                                            title: Text('50 Gram'),
-                                            onTap: () {
-                                              Navigator.of(context).pop();
+                                child: ProductUnit(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: widget
+                                              .productUnit.productUnit
+                                              .map(
+                                            (data) {
+                                              return Column(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 10),
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        setState(() {
+                                                          unitData = data;
+                                                        });
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text(
+                                                        data,
+                                                        style: TextStyle(
+                                                            color: primaryColor,
+                                                            fontSize: 18),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
                                             },
-                                          ),
-                                          ListTile(
-                                            title: Text('500 Gram'),
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                          ListTile(
-                                            title: Text('1 Kg'),
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.10 /
-                                      2,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.20,
-                                  decoration: BoxDecoration(
-                                    //color: Colors.black,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 2.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          '50 Gram',
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_downward,
-                                          size: 15.0,
-                                          color: Colors.orangeAccent,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                          ).toList(),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  title:
+                                      unitData == null ? firstValue : unitData,
                                 ),
-                              )),
+                              ),
                               SizedBox(
                                 width: 5.0,
                               ),
@@ -144,6 +139,8 @@ class _SingleProductState extends State<SingleProduct> {
                                 productName: widget.productName,
                                 productImage: widget.productImage,
                                 productPrice: widget.productPrice,
+                                productUnit:
+                                    unitData == null ? firstValue : unitData,
                               ),
                             ],
                           ),

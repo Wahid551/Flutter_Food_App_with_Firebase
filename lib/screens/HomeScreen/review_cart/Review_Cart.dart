@@ -93,6 +93,7 @@ class _ReviewCartState extends State<ReviewCart> {
                       productImage: data.cartImage,
                       productId: data.cartId,
                       productQuantity: data.cartQuantity,
+                      productUnit: data.cartUnit,
                       onTap: () {
                         showAlertDialog(context, data.cartId);
                       },

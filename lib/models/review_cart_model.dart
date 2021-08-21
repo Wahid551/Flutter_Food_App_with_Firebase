@@ -4,6 +4,7 @@ class ReviewCartModel {
   late int cartPrice;
   late String cartName;
   late int cartQuantity;
+  late var cartUnit;
 
   ReviewCartModel({
     required this.cartId,
@@ -11,5 +12,6 @@ class ReviewCartModel {
     required this.cartName,
     required this.cartPrice,
     required this.cartQuantity,
+    required this.cartUnit,
   });
 }

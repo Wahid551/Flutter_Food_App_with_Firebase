@@ -10,11 +10,13 @@ class Count extends StatefulWidget {
   late String productImage;
   late String productId;
   late int productPrice;
+  var productUnit;
   Count({
     required this.productName,
     required this.productImage,
     required this.productPrice,
     required this.productId,
+    required this.productUnit,
   });
   @override
   _CountState createState() => _CountState();
@@ -127,6 +129,7 @@ class _CountState extends State<Count> {
                     cartImage: widget.productImage,
                     cartPrice: widget.productPrice,
                     cartQuantity: count,
+                    cartUnit: widget.productUnit,
                   );
                 },
                 child: Text(

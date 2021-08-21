@@ -4,6 +4,7 @@ class ProductModel {
   late int productPrice;
   late String productId;
   late int productQuantity;
+  List<dynamic> productUnit;
 
   ProductModel({
     required this.productName,
@@ -11,5 +12,6 @@ class ProductModel {
     required this.productPrice,
     required this.productId,
     required this.productQuantity,
+    required this.productUnit,
   });
 }

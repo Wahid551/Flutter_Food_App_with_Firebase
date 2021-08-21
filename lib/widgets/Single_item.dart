@@ -16,6 +16,7 @@ class SingleItem extends StatefulWidget {
   int productPrice;
   int productQuantity;
   String productId;
+  var productUnit;
   void Function() onTap;
   SingleItem({
     required this.isBool,
@@ -26,6 +27,7 @@ class SingleItem extends StatefulWidget {
     required this.productQuantity,
     required this.onTap,
     required this.isWish,
+    required this.productUnit,
   });
 
   @override
@@ -145,7 +147,7 @@ class _SingleItemState extends State<SingleItem> {
                               ),
                             ),
                           )
-                        : Text('50 Gram'),
+                        : Text(widget.productUnit),
                   ],
                 ),
               )),
@@ -161,6 +163,7 @@ class _SingleItemState extends State<SingleItem> {
                             productName: widget.productName,
                             productImage: widget.productImage,
                             productPrice: widget.productPrice,
+                            productUnit: '',
                           )
                         // ? Container(
                         //     height: 25.0,

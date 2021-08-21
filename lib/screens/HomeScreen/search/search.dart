@@ -76,6 +76,7 @@ class _SearchState extends State<Search> {
                   productImage: e.productImage,
                   productId: e.productId,
                   productQuantity: 0,
+                  productUnit: '',
                   onTap: () {},
                 );
               },
