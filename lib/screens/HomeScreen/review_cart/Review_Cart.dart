@@ -54,7 +54,7 @@ class _ReviewCartState extends State<ReviewCart> {
     return Scaffold(
       bottomNavigationBar: ListTile(
         title: Text('Total Amount'),
-        subtitle: Text('\$17.00'),
+        subtitle: Text('${reviewCartProvider.getTotalPrice()}'),
         trailing: Container(
           width: 160.0,
           child: MaterialButton(
