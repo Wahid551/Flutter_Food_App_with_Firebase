@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/models/review_cart_model.dart';
 import 'package:food_app/provider/review_cart_provider.dart';
+import 'package:food_app/screens/HomeScreen/check_Out/delivery_Details/delivery-details.dart';
 import 'package:food_app/widgets/Single_item.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +59,9 @@ class _ReviewCartState extends State<ReviewCart> {
         trailing: Container(
           width: 160.0,
           child: MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>DeliveryDetails(),),);
+            },
             color: primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
