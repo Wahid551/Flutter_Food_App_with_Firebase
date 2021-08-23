@@ -231,32 +231,33 @@ class _ProductOverViewState extends State<ProductOverView> {
             ),
           ),
           Expanded(
-              child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'About This Product',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'About This Product',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  'A product description is the marketing copy that explains what a product is and why its worth purchasing. The purpose of a product description is to supply customers with important information about the features and benefits of the product so they are compelled to buy',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: textColor,
+                  SizedBox(
+                    height: 10.0,
                   ),
-                ),
-              ],
+                  Text(
+                    'A product description is the marketing copy that explains what a product is and why its worth purchasing. The purpose of a product description is to supply customers with important information about the features and benefits of the product so they are compelled to buy',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: textColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );

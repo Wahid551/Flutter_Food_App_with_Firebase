@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/models/review_cart_model.dart';
 import 'package:food_app/provider/review_cart_provider.dart';
@@ -48,6 +49,10 @@ class _ReviewCartState extends State<ReviewCart> {
     );
   }
 
+  showToast() {
+    Fluttertoast.showToast(msg: "No Cart Data Found");
+  }
+
   @override
   Widget build(BuildContext context) {
     reviewCartProvider = Provider.of<ReviewCartProvider>(context);
@@ -59,8 +64,16 @@ class _ReviewCartState extends State<ReviewCart> {
         trailing: Container(
           width: 160.0,
           child: MaterialButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>DeliveryDetails(),),);
+            onPressed: () async {
+              if (reviewCartProvider.getReviewCartDataList.isEmpty) {
+                showToast();
+                return null;
+              }
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DeliveryDetails(),
+                ),
+              );
             },
             color: primaryColor,
             shape: RoundedRectangleBorder(

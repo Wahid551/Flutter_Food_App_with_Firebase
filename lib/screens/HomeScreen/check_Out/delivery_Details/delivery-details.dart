@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
 import 'package:food_app/screens/HomeScreen/check_Out/delivery_Details/single_delivery_item.dart';
 
+import 'add_delivery-address/add_delivery_Address.dart';
+
 class DeliveryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -21,11 +23,11 @@ class DeliveryDetails extends StatelessWidget {
         child: MaterialButton(
           child: Text("Add new Address"),
           onPressed: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => AddDeliverAddress(),
-            //   ),
-            // );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AddDeliverAddress(),
+              ),
+            );
           },
           color: primaryColor,
           shape: RoundedRectangleBorder(
