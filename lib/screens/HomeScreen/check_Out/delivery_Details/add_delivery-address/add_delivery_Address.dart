@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/config/colors.dart';
+import 'package:food_app/provider/check_out_provider.dart';
+import 'package:food_app/screens/HomeScreen/check_Out/delivery_Details/google_map/google_map.dart';
 import 'package:food_app/widgets/custom_text_field.dart';
+import 'package:provider/provider.dart';
 
 class AddDeliverAddress extends StatefulWidget {
   @override
@@ -18,6 +21,8 @@ class _AddDeliverAddressState extends State<AddDeliverAddress> {
   // late TextEditingController textEditingController;
   @override
   Widget build(BuildContext context) {
+    CheckoutProvider checkoutProvider = Provider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -28,21 +33,27 @@ class _AddDeliverAddressState extends State<AddDeliverAddress> {
       bottomNavigationBar: Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         height: 48,
-        child: MaterialButton(
-          onPressed: () {},
-          child: Text(
-            "Add Address",
-            style: TextStyle(
-              color: textColor,
-            ),
-          ),
-          color: primaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              30,
-            ),
-          ),
-        ),
+        child: checkoutProvider.isloadding == false
+            ? MaterialButton(
+                onPressed: () {
+                  checkoutProvider.validator(context, myType);
+                },
+                child: Text(
+                  "Add Address",
+                  style: TextStyle(
+                    color: textColor,
+                  ),
+                ),
+                color: primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    30,
+                  ),
+                ),
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -52,56 +63,59 @@ class _AddDeliverAddressState extends State<AddDeliverAddress> {
           children: [
             CostomTextField(
               labText: "First name",
-              //    controller: textEditingController,
+              controller: checkoutProvider.firstName,
               keyboardType: TextInputType.text,
             ),
             CostomTextField(
               labText: "Last name",
-              //  controller: textEditingController,
+              controller: checkoutProvider.lastName,
               keyboardType: TextInputType.text,
             ),
             CostomTextField(
               labText: "Mobile No",
-              //controller: textEditingController,
+              controller: checkoutProvider.mobileNo,
               keyboardType: TextInputType.phone,
             ),
             CostomTextField(
               labText: "Alternate Mobile No",
-              //     controller: textEditingController,
+              controller: checkoutProvider.alternateMobileNo,
               keyboardType: TextInputType.phone,
             ),
             CostomTextField(
               labText: "Society",
-              //   controller: textEditingController,
+              controller: checkoutProvider.scoiety,
               keyboardType: TextInputType.text,
             ),
             CostomTextField(
               labText: "Street",
-              // controller: textEditingController,
+              controller: checkoutProvider.street,
               keyboardType: TextInputType.text,
             ),
             CostomTextField(
               labText: "Landmark",
-              //    controller: textEditingController,
+              controller: checkoutProvider.landmark,
               keyboardType: TextInputType.text,
             ),
             CostomTextField(
               labText: "City",
-              //  controller: textEditingController,
+              controller: checkoutProvider.city,
               keyboardType: TextInputType.text,
             ),
             CostomTextField(
               labText: "Area",
-              //   controller: textEditingController,
+              controller: checkoutProvider.aera,
               keyboardType: TextInputType.text,
             ),
             CostomTextField(
               labText: "Pin Code",
-              //  controller: textEditingController,
+              controller: checkoutProvider.pincode,
               keyboardType: TextInputType.number,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CostomGoogleMap()));
+              },
               child: Container(
                 height: 47,
                 width: double.infinity,
@@ -109,7 +123,9 @@ class _AddDeliverAddressState extends State<AddDeliverAddress> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Set Location"),
+                    checkoutProvider.setLoaction == null
+                        ? Text("Set Location")
+                        : Text('Done!'),
                   ],
                 ),
               ),

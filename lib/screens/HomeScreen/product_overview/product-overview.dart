@@ -196,7 +196,7 @@ class _ProductOverViewState extends State<ProductOverView> {
                           productName: widget.productName,
                           productImage: widget.productImage,
                           productPrice: widget.productPrice,
-                          productUnit: '',
+                          productUnit: '500 Gram',
                         ),
 
                         // Container(

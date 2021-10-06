@@ -223,10 +223,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    ProductProvider productProvider = Provider.of(context, listen: false);
-    productProvider.fetchHerbsProduct();
-    productProvider.fetchFruitsProduct();
-    productProvider.fetchRootsProduct();
+    ProductProvider initproductProvider = Provider.of(context, listen: false);
+    initproductProvider.fetchHerbsProduct();
+    initproductProvider.fetchFruitsProduct();
+    initproductProvider.fetchRootsProduct();
     super.initState();
   }
 
